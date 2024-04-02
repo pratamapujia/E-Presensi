@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login - Mazer Admin Dashboard</title>
+    <title>Login Admin</title>
 
     <link rel="shortcut icon" href="{{ asset('assets/admin/compiled/svg/favicon.svg') }}" type="image/x-icon" />
     <link rel="shortcut icon"
@@ -19,27 +19,24 @@
     <script src="{{ asset('assets/admin/static/js/initTheme.js') }}"></script>
     <div id="auth">
       <div class="row justify-content-center ">
-        <div class="col-lg-5 col-12">
+        <div class="col-lg-5 col-12 mt-5">
           <div id="auth-center">
-            <div class="auth-logo">
-              <a href="index.html"><img src="{{ asset('assets/admin/compiled/svg/logo.svg') }}" alt="Logo" /></a>
-            </div>
             <h1 class="auth-title">Login Admin.</h1>
-
-            <form action="index.html">
+            @if (Session::get('pesan'))
+              <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{ Session::get('pesan') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            @endif
+            <form action="/prosesLoginAdmin" method="POST" autocomplete="off">
+              @csrf
               <div class="form-group position-relative mb-4">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control form-control" name="username" placeholder="Username" />
-                {{-- <div class="form-control-icon">
-                  <i class="bi bi-person"></i>
-                </div> --}}
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" required />
               </div>
               <div class="form-group position-relative mb-4">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control form-control" name="password" placeholder="Password" />
-                {{-- <div class="form-control-icon">
-                  <i class="bi bi-shield-lock"></i>
-                </div> --}}
+                <input type="password" class="form-control" name="password" required />
               </div>
               <div class="form-check form-check-lg d-flex align-items-end">
                 <input class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault" />

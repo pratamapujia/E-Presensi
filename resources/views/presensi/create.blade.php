@@ -85,24 +85,6 @@
         </div>
       </div>
     </div>
-    {{-- <div class="row" style="margin-top: 70px">
-      <div class="col-sm-12 col-md-6 col-lg-6">
-        <input type="hidden" id="lokasi">
-        <div class="webcam-capture"></div>
-        @if ($cek > 0)
-          <button id="takeAbsen" class="btn btn-danger btn-block">
-            <ion-icon name="camera-outline"></ion-icon> Absen Pulang
-          </button>
-        @else
-          <button id="takeAbsen" class="btn btn-primary btn-block">
-            <ion-icon name="camera-outline"></ion-icon> Absen Masuk
-          </button>
-        @endif
-      </div>
-      <div class="col-sm-12 col-md-6 col-lg-6 mt-2">
-        <div id="map"></div>
-      </div>
-    </div> --}}
   </div>
 @endsection
 
@@ -130,7 +112,7 @@
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       }).addTo(map);
       var marker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
-      var circle = L.circle([-7.359031769291131, 112.75287253858224], {
+      var circle = L.circle([-7.395647283940812, 112.76257156291571], {
         color: 'red',
         fillColor: '#f03',
         fillOpacity: 0.5,

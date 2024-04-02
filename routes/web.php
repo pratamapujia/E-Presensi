@@ -20,12 +20,17 @@ use Illuminate\Support\Facades\Route;
 
 // Route Admin
 Route::middleware(['guest:user'])->group(function () {
-    Route::get('/admin-panel', function () {
+    Route::get('/panel', function () {
         return view('auth.loginAdmin');
     })->name('loginAdmin');
+    Route::post('/prosesLoginAdmin', [AuthController::class, 'prosesLoginAdmin']);
 });
 
-Route::get('/admin-dashboard', [AdminController::class, 'index']);
+Route::middleware(['auth:user'])->group(function () {
+    Route::get('/prosesLogoutAdmin', [AuthController::class, 'prosesLogoutAdmin']);
+    Route::get('/panel/dashboard', [AdminController::class, 'index']);
+});
+
 
 // Route User
 Route::middleware(['guest:karyawan'])->group(function () {

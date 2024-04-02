@@ -34,34 +34,20 @@
               <label for="no_hp" class="form-label">No Hp</label>
               <input type="text" class="form-control" value="{{ $karyawan->no_hp }}" name="no_hp" placeholder="No. HP" autocomplete="off">
             </div>
-              <div class="form-group boxed">
-                <div class="input-wrapper">
-                </div>
-              </div>
-              <div class="form-group boxed">
-                <div class="input-wrapper">
-                  <input type="password" class="form-control" name="password" placeholder="Password" autocomplete="off">
-                </div>
-              </div>
-              <div class="custom-file-upload" id="fileUpload1">
-                <input type="file" name="foto" id="fileuploadInput" accept=".png, .jpg, .jpeg">
-                <label for="fileuploadInput">
-                  <span>
-                    <strong>
-                      <ion-icon name="cloud-upload-outline" role="img" class="md hydrated" aria-label="cloud upload outline"></ion-icon>
-                      <i>Tap to Upload</i>
-                    </strong>
-                  </span>
-                </label>
-              </div>
-              <div class="form-group boxed">
-                <div class="input-wrapper">
-                  <button type="submit" class="btn btn-primary btn-block">
-                    <ion-icon name="refresh-outline"></ion-icon>
-                    Update
-                  </button>
-                </div>
-              </div>
+            <div class="col-sm-12 col-md-6 col-lg-6">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" name="password" placeholder="Password" autocomplete="off">
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-6">
+              <label for="foto" class="form-label">Foto</label>
+              <input type="file" name="foto" id="fileuploadInput" class="form-control" accept=".png, .jpg, .jpeg">
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary btn-block">
+                <ion-icon name="refresh-outline"></ion-icon>
+                Update
+              </button>
+            </div>
           </form>
         </div>
       </div>

@@ -208,7 +208,7 @@
                     <tr>
                       <td><ion-icon name="finger-print-outline" class="fs-2"></ion-icon></td>
                       <td>{{ date('d-M-Y', strtotime($data->tgl_absen)) }}</td>
-                      <td><span class="badge badge-success">{{ $data->jam_in }}</span></td>
+                      <td><span class="badge {{ $data->jam_in < '07:00' ? 'badge-success' : 'badge-warning' }}">{{ $data->jam_in }}</span></td>
                       <td>
                         <span class="badge badge-danger">
                           {{ $presensiHariIni != null && $data->jam_out != null ? $data->jam_out : 'Belum Absen Pulang' }}
@@ -240,7 +240,7 @@
                       <td>{{ $data->nama_lengkap }}</td>
                       <td>{{ $data->jabatan }}</td>
                       <td>
-                        <span class="badge {{ $data->jam_in < '07:00' ? 'bg-success' : 'bg-danger' }}">
+                        <span class="badge {{ $data->jam_in < '07:00' ? 'bg-success' : 'bg-warning' }}">
                           {{ $data->jam_in }}
                         </span>
                       </td>

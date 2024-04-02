@@ -24,10 +24,11 @@ class PresensiController extends Controller
         $nik = Auth::guard('karyawan')->user()->nik;
         $tgl_absen = date("Y-m-d");
         $jam = date("H:i:s");
+        // -7.395649943836326, 112.76258229175109 Lokasi SMK Senopati
         // -7.359031769291131, 112.75287253858224 Lokasi Asli
         // -7.359706373310006, 112.75319377211852 Lokasi palsu
-        $latitudeKantor = -7.359031769291131;
-        $longitudeKantor = 112.75287253858224;
+        $latitudeKantor = -7.395649943836326;
+        $longitudeKantor = 112.76258229175109;
         $lokasi = $request->lokasi;
         $lokasiUser =   explode(",", $lokasi);
         $latitudeUser = $lokasiUser[0];
