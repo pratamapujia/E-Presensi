@@ -9,6 +9,10 @@
     <link rel="shortcut icon" href="{{ asset('assets/admin/compiled/svg/favicon.svg') }}" type="image/x-icon" />
     <link rel="stylesheet" href="{{ asset('assets/admin/compiled/css/app.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/admin/compiled/css/app-dark.css') }}" />
+    {{-- FontAwesome --}}
+    <link rel="stylesheet" href="{{ asset('assets/admin/extensions/@fortawesome/fontawesome-free/css/all.min.css') }}">
+    {{-- SweetAlert --}}
+    <link rel="stylesheet" href="{{ asset('assets/admin/extensions/sweetalert2/sweetalert2.min.css') }}" />
   </head>
 
   <body>

@@ -1,11 +1,18 @@
 <div class="sidebar-menu">
   <ul class="menu">
-    <li class="sidebar-title">Menu</li>
-
-    <li class="sidebar-item {{ request()->is('admin-dashboard') ? 'active' : '' }}">
-      <a href="/admin-dashboard" class="sidebar-link">
+    <li class="sidebar-item {{ request()->is('panel/dashboard') ? 'active' : '' }}">
+      <a href="/panel/dashboard" class="sidebar-link">
         <i class="bi bi-grid-fill"></i>
         <span>Dashboard</span>
+      </a>
+    </li>
+
+    <li class="sidebar-title">Data Master</li>
+
+    <li class="sidebar-item {{ request()->is('karyawan', 'karyawan/create') ? 'active' : '' }}">
+      <a href="/karyawan" class="sidebar-link">
+        <i class="bi bi-file-earmark-person-fill"></i>
+        <span>Master Karyawan</span>
       </a>
     </li>
 

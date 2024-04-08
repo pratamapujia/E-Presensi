@@ -1,7 +1,6 @@
 @extends('admin.layouts.index')
 @section('title')
   <title>Dashboard Admin</title>
-  <link rel="stylesheet" href="{{ asset('assets/admin/extensions/@fortawesome/fontawesome-free/css/all.min.css') }}">
   {{-- <link rel="stylesheet" href="{{ asset('assets/admin/compiled/css/iconly.css') }}"> --}}
 @endsection
 @section('main')

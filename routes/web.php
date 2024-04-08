@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Dashboard;
+use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\PresensiController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,21 +17,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-
-// Route Admin
-Route::middleware(['guest:user'])->group(function () {
-    Route::get('/panel', function () {
-        return view('auth.loginAdmin');
-    })->name('loginAdmin');
-    Route::post('/prosesLoginAdmin', [AuthController::class, 'prosesLoginAdmin']);
-});
-
-Route::middleware(['auth:user'])->group(function () {
-    Route::get('/prosesLogoutAdmin', [AuthController::class, 'prosesLogoutAdmin']);
-    Route::get('/panel/dashboard', [AdminController::class, 'index']);
-});
-
 
 // Route User
 Route::middleware(['guest:karyawan'])->group(function () {
@@ -60,4 +46,22 @@ Route::middleware(['auth:karyawan'])->group(function () {
     Route::get('/presensi/izin', [PresensiController::class, 'izin']);
     Route::get('/presensi/buatizin', [PresensiController::class, 'buatIzin']);
     Route::post('/presensi/storeizin', [PresensiController::class, 'storeIzin']);
+});
+
+// Route Admin
+Route::middleware(['guest:user'])->group(function () {
+    Route::get('/panel', function () {
+        return view('auth.loginAdmin');
+    })->name('loginAdmin');
+    Route::post('/prosesLoginAdmin', [AuthController::class, 'prosesLoginAdmin']);
+});
+
+Route::middleware(['auth:user'])->group(function () {
+    Route::get('/prosesLogoutAdmin', [AuthController::class, 'prosesLogoutAdmin']);
+    Route::get('/panel/dashboard', [AdminController::class, 'index']);
+
+    // Karyawan
+    Route::get('/karyawan', [KaryawanController::class, 'index']);
+    Route::get('/karyawan/create', [KaryawanController::class, 'create']);
+    Route::post('/karyawan/store', [KaryawanController::class, 'store']);
 });
