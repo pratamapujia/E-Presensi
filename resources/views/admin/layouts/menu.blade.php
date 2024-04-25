@@ -9,7 +9,7 @@
 
     <li class="sidebar-title">Data Master</li>
 
-    <li class="sidebar-item {{ request()->is('karyawan', 'karyawan/create') ? 'active' : '' }}">
+    <li class="sidebar-item {{ request()->is('karyawan', 'karyawan/*') ? 'active' : '' }}">
       <a href="/karyawan" class="sidebar-link">
         <i class="bi bi-file-earmark-person-fill"></i>
         <span>Master Karyawan</span>

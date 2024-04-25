@@ -55,6 +55,14 @@
                 <td>{{ $value->jabatan }}</td>
                 <td>{{ $value->no_hp }}</td>
                 <td>{{ $value->nama_departemen }}</td>
+                <td>
+                  <a href="karyawan/edit/{{ $value->nik }}" class="btn icon icon-left btn-warning">
+                    <li class="fas fa-edit"></li> Edit
+                  </a>
+                  <a href="#" class="btn icon icon-left btn-danger">
+                    <li class="fas fa-trash"></li> Hapus
+                  </a>
+                </td>
               </tr>
             @endforeach
           </tbody>

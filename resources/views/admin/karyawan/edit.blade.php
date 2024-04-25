@@ -1,7 +1,7 @@
 @extends('admin.layouts.index')
 
 @section('title')
-  <title>Form Tambah Data</title>
+  <title>Form Edit Data</title>
 @endsection
 
 @section('main')
@@ -9,7 +9,7 @@
     <div class="page-title">
       <div class="row">
         <div class="col-12 col-md-6 order-md-1 order-last">
-          <h3>Form Tambah Data</h3>
+          <h3>Form Edit Data</h3>
         </div>
         <div class="col-12 col-md-6 order-md-2 order-first">
           <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -18,7 +18,7 @@
                 <a href="/karyawan">Master Karyawan</a>
               </li>
               <li class="breadcrumb-item active" aria-current="page">
-                Form Tambah Data
+                Form Edit Data
               </li>
             </ol>
           </nav>
@@ -42,24 +42,21 @@
         </div>
       </div>
       <div class="card-body">
-        <form action="/karyawan/store" class="form" method="POST" enctype="multipart/form-data">
+        <form action="/karyawan/update/{{ $data->nik }}" class="form" method="POST" enctype="multipart/form-data">
           @csrf
+          <input type="hidden" name="old_foto" value="{{ $data->foto }}">
           <div class="row">
             <div class="col-sm-12 col-md-6 col-lg-6">
               <div class="form-group">
                 <label for="nik">NIK</label>
-                <input type="text" class="form-control @error('nik') is-invalid @enderror" name="nik" placeholder="NIK" value="{{ old('nik') }}">
-                @error('nik')
-                  <div class="invalid-feedback">
-                    {{ $message }}
-                  </div>
-                @enderror
+                <input type="text" class="form-control" name="nik" disabled value="{{ $data->nik }}">
               </div>
             </div>
             <div class="col-sm-12 col-md-6 col-lg-6">
               <div class="form-group">
                 <label for="nama_lengkap">Nama Lengkap</label>
-                <input type="text" class="form-control @error('nama_lengkap') is-invalid @enderror" name="nama_lengkap" placeholder="Nama Lengkap" value="{{ old('nama_lengkap') }}">
+                <input type="text" class="form-control @error('nama_lengkap') is-invalid @enderror" name="nama_lengkap" placeholder="Nama Lengkap"
+                  value="{{ old('nama_lengkap', $data->nama_lengkap) }}">
                 @error('nama_lengkap')
                   <div class="invalid-feedback">
                     {{ $message }}
@@ -70,7 +67,7 @@
             <div class="col-sm-12 col-md-6 col-lg-6">
               <div class="form-group">
                 <label for="jabatan">Jabatan</label>
-                <input type="text" class="form-control @error('jabatan') is-invalid @enderror" name="jabatan" placeholder="Jabatan" value="{{ old('jabatan') }}">
+                <input type="text" class="form-control @error('jabatan') is-invalid @enderror" name="jabatan" placeholder="Jabatan" value="{{ old('jabatan', $data->jabatan) }}">
                 @error('jabatan')
                   <div class="invalid-feedback">
                     {{ $message }}
@@ -81,7 +78,7 @@
             <div class="col-sm-12 col-md-6 col-lg-6">
               <div class="form-group">
                 <label for="no_hp">No. Hp</label>
-                <input type="text" class="form-control @error('no_hp') is-invalid @enderror" name="no_hp" placeholder="No. Hp" value="{{ old('no_hp') }}">
+                <input type="text" class="form-control @error('no_hp') is-invalid @enderror" name="no_hp" placeholder="No. Hp" value="{{ old('no_hp', $data->no_hp) }}">
                 @error('no_hp')
                   <div class="invalid-feedback">
                     {{ $message }}
@@ -95,11 +92,12 @@
                 <select name="kd_departemen" id="kd_departemen" class="form-select @error('kd_departemen') is-invalid @enderror">
                   <option value="">Pilih Departemen</option>
                   @foreach ($dept as $value)
-                    @if (old('kd_departemen') == $value->kd_departemen)
+                    <option value="<?= $value->kd_departemen ?>" <?= old('kd_departemen', $data->kd_departemen) == $value->kd_departemen ? 'selected' : null ?>><?= $value->nama_departemen ?></option>
+                    {{-- @if (old('kd_departemen') == $value->kd_departemen)
                       <option value="{{ $value->kd_departemen }}" selected>{{ $value->nama_departemen }}</option>
                     @else
                       <option value="{{ $value->kd_departemen }}">{{ $value->nama_departemen }}</option>
-                    @endif
+                    @endif --}}
                     {{-- <option {{ old('kd_depertemen', $value->kd_departemen) == $value->kd_departemen ? 'selected' : '' }} value="{{ $value->kd_departemen }}">{{ $value->nama_departemen }}</option> --}}
                   @endforeach
                 </select>
