@@ -42,14 +42,15 @@
         </div>
       </div>
       <div class="card-body">
-        <form action="/karyawan/update/{{ $data->nik }}" class="form" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('karyawan.update', $data->nik) }}" class="form" method="POST" enctype="multipart/form-data">
           @csrf
+          <input type="hidden" name="_method" value="put">
           <input type="hidden" name="old_foto" value="{{ $data->foto }}">
           <div class="row">
             <div class="col-sm-12 col-md-6 col-lg-6">
               <div class="form-group">
                 <label for="nik">NIK</label>
-                <input type="text" class="form-control" name="nik" disabled value="{{ $data->nik }}">
+                <input type="text" class="form-control" name="nik" value="{{ $data->nik }}">
               </div>
             </div>
             <div class="col-sm-12 col-md-6 col-lg-6">

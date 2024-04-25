@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('id_departemen');
             $table->string('kd_departemen');
             $table->string('nama_departemen');
+            $table->timestamps();
         });
     }
 

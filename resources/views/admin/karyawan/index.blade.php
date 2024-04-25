@@ -16,7 +16,7 @@
     <div class="flash-data" data-gagal="{{ Session::get('gagal') }}"></div>
     <div class="card">
       <div class="card-header">
-        <a href="/karyawan/create" class="btn icon icon-left btn-primary">
+        <a href="{{ route('karyawan.create') }}" class="btn icon icon-left btn-primary">
           <i class="fas fa-plus"></i> Tambah Data
         </a>
       </div>
@@ -56,12 +56,16 @@
                 <td>{{ $value->no_hp }}</td>
                 <td>{{ $value->nama_departemen }}</td>
                 <td>
-                  <a href="karyawan/edit/{{ $value->nik }}" class="btn icon icon-left btn-warning">
+                  <a href="{{ route('karyawan.edit', $value->nik) }}" class="btn icon icon-left btn-sm btn-warning">
                     <li class="fas fa-edit"></li> Edit
                   </a>
-                  <a href="#" class="btn icon icon-left btn-danger">
-                    <li class="fas fa-trash"></li> Hapus
-                  </a>
+                  <form action="{{ route('karyawan.destroy', $value->nik) }}" method="POST" class="d-inline">
+                    @csrf
+                    <input type="hidden" name="_method" value="delete">
+                    <button type="button" class="btn icon icon-left btn-danger btn-sm btn-delete">
+                      <li class="fas fa-trash"></li> Hapus
+                    </button>
+                  </form>
                 </td>
               </tr>
             @endforeach

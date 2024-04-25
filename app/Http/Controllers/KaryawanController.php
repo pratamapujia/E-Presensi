@@ -3,29 +3,38 @@
 namespace App\Http\Controllers;
 
 use App\Models\Karyawan;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class KaryawanController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
         $karyawan = DB::table('karyawan')
-            ->orderBy('nama_lengkap')
+            ->orderBy('karyawan.updated_at', 'DESC')
             ->join('departemen', 'karyawan.kd_departemen', '=', 'departemen.kd_departemen')
             ->get();
         return view('admin.karyawan.index', compact('karyawan'));
     }
 
+    /**
+     * Show the form for creating a new resource.
+     */
     public function create()
     {
         $dept = DB::table('departemen')->get();
         return view('admin.karyawan.create', compact('dept'));
     }
 
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
         // Validation
@@ -58,52 +67,75 @@ class KaryawanController extends Controller
             return redirect()->back()->withErrors($validasi)->withInput();
         }
 
-        $nik = $request->nik;
-        $nama_lengkap = $request->nama_lengkap;
-        $jabatan = $request->jabatan;
-        $no_hp = $request->no_hp;
-        $kd_departemen = $request->kd_departemen;
-        $password = Hash::make('password');
+        $karyawan = new Karyawan();
+        $karyawan->nik = $request->nik;
+        $karyawan->nama_lengkap = $request->nama_lengkap;
+        $karyawan->jabatan = $request->jabatan;
+        $karyawan->no_hp = $request->no_hp;
+        $karyawan->kd_departemen = $request->kd_departemen;
+        $karyawan->password = Hash::make('password');
 
         if ($request->hasFile('foto')) {
-            $foto = $nik . "." . $request->file('foto')->getClientOriginalExtension();
+            $foto = $karyawan->nik . "." . $request->file('foto')->getClientOriginalExtension();
         } else {
             $foto = null;
         }
 
-        try {
-            $data = [
-                'nik' => $nik,
-                'nama_lengkap' => $nama_lengkap,
-                'jabatan' => $jabatan,
-                'no_hp' => $no_hp,
-                'kd_departemen' => $kd_departemen,
-                'foto' => $foto,
-                'password' => $password,
-            ];
-
-            $simpan = DB::table('karyawan')->insert($data);
-            if ($simpan) {
-                if ($request->hasFile('foto')) {
-                    $path = "public/uploads/karyawan/";
-                    $request->file('foto')->storeAs($path, $foto);
-                }
-                return redirect()->to('karyawan')->with(['pesan' => 'Data berhasil disimpan 👍']);
+        if ($karyawan->save()) {
+            if ($request->hasFile('foto')) {
+                $path = "public/uploads/karyawan/";
+                $request->file('foto')->storeAs($path, $foto);
             }
-        } catch (\Throwable $th) {
-            // dd($th);
-            return redirect()->back()->with(['gagal' => 'Data gagal disimpan 😭']);
+            return redirect()->route('karyawan.index')->with('pesan', 'Data berhasil disimpan 👍');
+        } else {
+            return redirect()->back()->with('gagal', 'Data gagal Disimpan 😭');
         }
+        // try {
+        //     $data = [
+        //         'nik' => $nik,
+        //         'nama_lengkap' => $nama_lengkap,
+        //         'jabatan' => $jabatan,
+        //         'no_hp' => $no_hp,
+        //         'kd_departemen' => $kd_departemen,
+        //         'foto' => $foto,
+        //         'password' => $password,
+        //     ];
+
+        //     $simpan = DB::table('karyawan')->insert($data);
+        //     if ($simpan) {
+        //         if ($request->hasFile('foto')) {
+        //             $path = "public/uploads/karyawan/";
+        //             $request->file('foto')->storeAs($path, $foto);
+        //         }
+        //         return redirect()->route('karyawan.index')->with('pesan', 'Data berhasil disimpan 👍');
+        //     }
+        // } catch (\Throwable $th) {
+        //     // dd($th);
+        //     return redirect()->back()->with(['gagal' => 'Data gagal disimpan 😭']);
+        // }
     }
 
-    public function edit($nik = null)
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
     {
         $dept = DB::table('departemen')->get();
-        $data = DB::table('karyawan')->where('nik', $nik)->first();
+        $data = DB::table('karyawan')->where('nik', $id)->first();
         return view('admin.karyawan.edit', compact('dept', 'data'));
     }
 
-    public function update(Request $request, $nik)
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
     {
         // Validation
         $validasi = Validator::make($request->all(), [
@@ -129,43 +161,44 @@ class KaryawanController extends Controller
             return redirect()->back()->withErrors($validasi)->withInput();
         }
 
-        $nik = $request->nik;
-        $nama_lengkap = $request->nama_lengkap;
-        $jabatan = $request->jabatan;
-        $no_hp = $request->no_hp;
-        $kd_departemen = $request->kd_departemen;
-        $password = Hash::make('password');
+        $karyawan = Karyawan::find($id);
+        $karyawan->nik = $request->nik;
+        $karyawan->nama_lengkap = $request->nama_lengkap;
+        $karyawan->jabatan = $request->jabatan;
+        $karyawan->no_hp = $request->no_hp;
+        $karyawan->kd_departemen = $request->kd_departemen;
+        $karyawan->password = Hash::make('password');
         $old_foto = $request->old_foto;
 
         if ($request->hasFile('foto')) {
-            $foto = $nik . "." . $request->file('foto')->getClientOriginalExtension();
+            $foto = $karyawan->nik . "." . $request->file('foto')->getClientOriginalExtension();
         } else {
             $foto = $old_foto;
         }
 
-        try {
-            $data = [
-                'nama_lengkap' => $nama_lengkap,
-                'jabatan' => $jabatan,
-                'no_hp' => $no_hp,
-                'kd_departemen' => $kd_departemen,
-                'foto' => $foto,
-                'password' => $password,
-            ];
-
-            $update = DB::table('karyawan')->where('nik', $nik)->update($data);
-            if ($update) {
-                if ($request->hasFile('foto')) {
-                    $path = "public/uploads/karyawan/";
-                    $pathOld = "public/uploads/karyawan/" . $old_foto;
-                    Storage::delete($pathOld);
-                    $request->file('foto')->storeAs($path, $foto);
-                }
-                return redirect()->to('karyawan')->with(['pesan' => 'Data berhasil diPerbarui 👍']);
+        if ($karyawan->update()) {
+            if ($request->hasFile('foto')) {
+                $path = "public/uploads/karyawan/";
+                $pathOld = "public/uploads/karyawan/" . $old_foto;
+                Storage::delete($pathOld);
+                $request->file('foto')->storeAs($path, $foto);
             }
-        } catch (\Throwable $th) {
-            // dd($th);
-            return redirect()->back()->with(['gagal' => 'Data gagal diPerbarui 😭']);
+            return redirect()->route('karyawan.index')->with('pesan', 'Data berhasil Diperbarui 👍');
+        } else {
+            return redirect()->back()->with('gagal', 'Data gagal Diperbarui 😭');
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        $karyawan = Karyawan::find($id);
+        if ($karyawan->delete()) {
+            return redirect()->route('karyawan.index')->with('pesan','Data berhasil Dihapus 👍');
+        } else {
+            return redirect()->route('karyawan.index')->with('gagal','Data gagal Dihapus 😭');
         }
     }
 }
