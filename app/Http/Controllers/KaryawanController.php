@@ -76,15 +76,15 @@ class KaryawanController extends Controller
         $karyawan->password = Hash::make('password');
 
         if ($request->hasFile('foto')) {
-            $foto = $karyawan->nik . "." . $request->file('foto')->getClientOriginalExtension();
+            $karyawan->foto = $karyawan->nik . "." . $request->file('foto')->getClientOriginalExtension();
         } else {
-            $foto = null;
+            $karyawan->foto = null;
         }
 
         if ($karyawan->save()) {
             if ($request->hasFile('foto')) {
                 $path = "public/uploads/karyawan/";
-                $request->file('foto')->storeAs($path, $foto);
+                $request->file('foto')->storeAs($path, $karyawan->foto);
             }
             return redirect()->route('karyawan.index')->with('pesan', 'Data berhasil disimpan 👍');
         } else {
@@ -171,9 +171,9 @@ class KaryawanController extends Controller
         $old_foto = $request->old_foto;
 
         if ($request->hasFile('foto')) {
-            $foto = $karyawan->nik . "." . $request->file('foto')->getClientOriginalExtension();
+            $karyawan->foto = $karyawan->nik . "." . $request->file('foto')->getClientOriginalExtension();
         } else {
-            $foto = $old_foto;
+            $karyawan->foto = $old_foto;
         }
 
         if ($karyawan->update()) {
@@ -181,7 +181,7 @@ class KaryawanController extends Controller
                 $path = "public/uploads/karyawan/";
                 $pathOld = "public/uploads/karyawan/" . $old_foto;
                 Storage::delete($pathOld);
-                $request->file('foto')->storeAs($path, $foto);
+                $request->file('foto')->storeAs($path, $karyawan->foto);
             }
             return redirect()->route('karyawan.index')->with('pesan', 'Data berhasil Diperbarui 👍');
         } else {

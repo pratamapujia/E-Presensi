@@ -15,6 +15,12 @@
         <span>Master Karyawan</span>
       </a>
     </li>
+    <li class="sidebar-item {{ request()->is('departemen', 'departemen/*') ? 'active' : '' }}">
+      <a href="/departemen" class="sidebar-link">
+        <i class="bi bi-building"></i>
+        <span>Master Departemen</span>
+      </a>
+    </li>
 
     <li class="sidebar-item has-sub">
       <a href="#" class="sidebar-link">

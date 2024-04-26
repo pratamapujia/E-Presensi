@@ -3,8 +3,10 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Dashboard;
+use App\Http\Controllers\DepartemenController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\PresensiController;
+use App\Models\Departemen;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -61,10 +63,9 @@ Route::middleware(['auth:user'])->group(function () {
     Route::get('/panel/dashboard', [AdminController::class, 'index']);
 
     // Karyawan
-    // Route::get('/karyawan', [KaryawanController::class, 'index']);
-    // Route::get('/karyawan/create', [KaryawanController::class, 'create']);
-    // Route::post('/karyawan/store', [KaryawanController::class, 'store']);
-    // Route::get('/karyawan/edit/{id}', [KaryawanController::class, 'edit']);
-    // Route::post('/karyawan/update/{id}', [KaryawanController::class, 'update']);
     Route::resource('karyawan', KaryawanController::class);
+
+    // Departemen
+    Route::resource('departemen', DepartemenController::class);
+    Route::post('/departemen/edit', [DepartemenController::class, 'edit']);
 });
