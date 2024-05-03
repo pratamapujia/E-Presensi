@@ -1,5 +1,6 @@
 <form action="{{ route('departemen.update', $dep->id_departemen) }}" class="form needs-validation" method="POST" novalidate>
   @csrf
+  <input type="hidden" name="_method" value="put">
   <div class="modal-body">
     <label for="kd_departemen">Kode Departemen</label>
     <div class="form-group">

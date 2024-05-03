@@ -142,9 +142,6 @@
           },
           success: function(respond) {
             $('#loadFormEdit').html(respond);
-            // @if ($errors->any())
-            //   $('#modalInput').modal('show');
-            // @endif
           }
         });
       });

@@ -202,4 +202,21 @@ class PresensiController extends Controller
             return redirect('/presensi/izin')->with(['error' => 'Data gagal dikirim']);
         }
     }
+
+    public function monitoring()
+    {
+        return view('admin.presensi.index');
+    }
+
+    public function getPresensi(Request $request)
+    {
+        $tanggal = $request->tanggal;
+        $presensi = DB::table('absensi')
+            ->select('absensi.*', 'nama_lengkap', 'nama_departemen')
+            ->join('karyawan', 'absensi.nik', '=', 'karyawan.nik')
+            ->join('departemen', 'karyawan.kd_departemen', '=', 'departemen.kd_departemen')
+            ->where('tgl_absen', $tanggal)->get();
+
+        return view('admin.presensi.get', compact('presensi'));
+    }
 }

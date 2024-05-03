@@ -7,32 +7,26 @@
       </a>
     </li>
 
-    <li class="sidebar-title">Data Master</li>
-
-    <li class="sidebar-item {{ request()->is('karyawan', 'karyawan/*') ? 'active' : '' }}">
-      <a href="/karyawan" class="sidebar-link">
-        <i class="bi bi-file-earmark-person-fill"></i>
-        <span>Master Karyawan</span>
-      </a>
-    </li>
-    <li class="sidebar-item {{ request()->is('departemen', 'departemen/*') ? 'active' : '' }}">
-      <a href="/departemen" class="sidebar-link">
-        <i class="bi bi-building"></i>
-        <span>Master Departemen</span>
-      </a>
-    </li>
-
-    <li class="sidebar-item has-sub">
+    <li class="sidebar-item has-sub {{ request()->is('karyawan', 'karyawan/*', 'departemen', 'departemen/*') ? 'active' : '' }}">
       <a href="#" class="sidebar-link">
-        <i class="bi bi-stack"></i>
-        <span>Components</span>
+        <i class="bi bi-database-fill-gear"></i>
+        <span>Master Data</span>
       </a>
-
       <ul class="submenu">
-        <li class="submenu-item">
-          <a href="component-accordion.html" class="submenu-link">Accordion</a>
+        <li class="submenu-item {{ request()->is('karyawan', 'karyawan/*') ? 'active' : '' }}">
+          <a href="/karyawan" class="submenu-link">Karyawan</a>
+        </li>
+        <li class="submenu-item {{ request()->is('departemen', 'departemen/*') ? 'active' : '' }}">
+          <a href="/departemen" class="submenu-link">Departemen</a>
         </li>
       </ul>
+    </li>
+
+    <li class="sidebar-item {{ request()->is('monitoring', 'monitoring/*') ? 'active' : '' }} ">
+      <a href="/monitoring" class="sidebar-link">
+        <i class="bi bi-graph-up"></i>
+        <span>Monitoring Presensi</span>
+      </a>
     </li>
   </ul>
 </div>
