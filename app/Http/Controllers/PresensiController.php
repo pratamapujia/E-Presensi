@@ -11,6 +11,7 @@ use Mockery\Generator\StringManipulation\Pass\Pass;
 
 class PresensiController extends Controller
 {
+    // Bagian User Start
     public function create()
     {
         $hariIni = date('Y-m-d');
@@ -202,7 +203,9 @@ class PresensiController extends Controller
             return redirect('/presensi/izin')->with(['error' => 'Data gagal dikirim']);
         }
     }
+    // Bagian User End
 
+    // Bagian Admin Start
     public function monitoring()
     {
         return view('admin.presensi.index');
@@ -219,4 +222,27 @@ class PresensiController extends Controller
 
         return view('admin.presensi.get', compact('presensi'));
     }
+
+    public function laporan()
+    {
+        $namaBulan = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        $karyawan = DB::table('karyawan')->orderBy('nama_lengkap')->get();
+        return view('admin.laporan.index', compact('namaBulan', 'karyawan'));
+    }
+
+    public function cetakLaporan(Request $request)
+    {
+        $nik = $request->nik;
+        $bulan = $request->bulan;
+        $tahun = $request->tahun;
+        $namaBulan = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        $karyawan = DB::table('karyawan')->where('nik', $nik)
+            ->join('departemen', 'karyawan.kd_departemen', '=', 'departemen.kd_departemen')->first();
+        $absensi = DB::table('absensi')->where('nik', $nik)
+            ->whereRaw('MONTH(tgl_absen)="' . $bulan . '"')
+            ->whereRaw('YEAR(tgl_absen)="' . $tahun . '"')
+            ->orderBy('tgl_absen')->get();
+        return view('admin.laporan.print', compact('bulan', 'tahun', 'namaBulan', 'karyawan', 'absensi'));
+    }
+    // Bagian Admin End
 }

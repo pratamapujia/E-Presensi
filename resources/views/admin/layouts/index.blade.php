@@ -66,7 +66,7 @@
         <footer>
           <div class="footer clearfix mb-0 text-muted">
             <div class="float-start">
-              <p>{{ DATE('Y') }} &copy; E-Presensi</p>
+              <p>{{ DATE('Y') }} &copy; E-Presensi | Template by <a href="https://zuramai.github.io/mazer/">Mazer</a></p>
             </div>
             <div class="float-end">
               <p>
