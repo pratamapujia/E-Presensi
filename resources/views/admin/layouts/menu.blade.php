@@ -35,8 +35,8 @@
         <li class="submenu-item {{ request()->is('laporan/absensi') ? 'active' : '' }}">
           <a href="/laporan/absensi" class="submenu-link">Absensi</a>
         </li>
-        <li class="submenu-item {{ request()->is('') ? 'active' : '' }}">
-          <a href="" class="submenu-link">Rekap Absensi</a>
+        <li class="submenu-item {{ request()->is('laporan/rekab') ? 'active' : '' }}">
+          <a href="/laporan/rekab" class="submenu-link">Rekap Absensi</a>
         </li>
       </ul>
     </li>

@@ -244,5 +244,31 @@ class PresensiController extends Controller
             ->orderBy('tgl_absen')->get();
         return view('admin.laporan.print', compact('bulan', 'tahun', 'namaBulan', 'karyawan', 'absensi'));
     }
+
+    public function rekab()
+    {
+        $namaBulan = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        return view('admin.laporan.rekab', compact('namaBulan'));
+    }
+
+    public function cetakRekab(Request $request)
+    {
+
+        $bulan = $request->bulan;
+        $tahun = $request->tahun;
+        $namaBulan = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+
+        $rekab = DB::table('absensi')
+            ->select('absensi.nik', 'nama_lengkap')
+            ->join('karyawan', 'absensi.nik', '=', 'karyawan.nik')
+            ->whereRaw('MONTH(tgl_absen) = ?', [$bulan])
+            ->whereRaw('YEAR(tgl_absen) = ?', [$tahun])
+            ->groupBy('absensi.nik', 'nama_lengkap');
+        for ($i = 1; $i <= 31; $i++) {
+            $rekab->selectRaw('MAX(IF(DAY(tgl_absen) = ' . $i . ', CONCAT(jam_in, " | ", IFNULL(jam_out, "00:00:00")), "")) as tgl_' . $i);
+        }
+        $rekab = $rekab->get();
+        return view('admin.laporan.printRekab', compact('bulan', 'tahun', 'namaBulan', 'rekab'));
+    }
     // Bagian Admin End
 }
