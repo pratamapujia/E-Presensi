@@ -12,6 +12,12 @@
         <span>Monitoring Presensi</span>
       </a>
     </li>
+    <li class="sidebar-item {{ request()->is('izin', 'izin/*') ? 'active' : '' }} ">
+      <a href="/izin" class="sidebar-link">
+        <i class="bi bi-calendar2-week"></i>
+        <span>Izin / Sakit</span>
+      </a>
+    </li>
     <li class="sidebar-item has-sub {{ request()->is('karyawan', 'karyawan/*', 'departemen', 'departemen/*') ? 'active' : '' }}">
       <a href="#" class="sidebar-link">
         <i class="bi bi-database-gear"></i>

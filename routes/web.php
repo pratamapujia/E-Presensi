@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\DepartemenController;
+use App\Http\Controllers\IzinController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\Konfigurasi;
 use App\Http\Controllers\PresensiController;
@@ -83,4 +84,9 @@ Route::middleware(['auth:user'])->group(function () {
     // Setting Lokasi
     Route::get('/konfigurasi/lokasi', [Konfigurasi::class, 'setLokasi']);
     Route::post('/konfigurasi/updateLokasi', [Konfigurasi::class, 'updateLokasi']);
+
+    // Izin / Sakit
+    Route::get('izin', [IzinController::class, 'index']);
+    Route::post('/izin/{id}/update', [IzinController::class, 'update']);
+    Route::post('/izin/{id}/cancel', [IzinController::class, 'cancel']);
 });

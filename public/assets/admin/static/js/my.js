@@ -35,19 +35,19 @@ if (gagal) {
 $(document).on("click", ".btn-delete", function () {
     var form = $(this).closest("form");
     var url = form.attr("action");
-  
+
     Swal.fire({
-      title: "Apakah Anda yakin?",
-      text: "Data ini akan dihapus secara permanen!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Ya, hapus!",
+        title: "Apakah Anda yakin?",
+        text: "Data ini akan dihapus secara permanen!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya, hapus!",
     }).then((result) => {
-      if (result.isConfirmed) {
-        form.attr("action", url);
-        form.submit();
-      }
+        if (result.isConfirmed) {
+            form.attr("action", url);
+            form.submit();
+        }
     });
-  });
+});
