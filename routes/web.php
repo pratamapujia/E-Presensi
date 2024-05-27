@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\DepartemenController;
 use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\Konfigurasi;
 use App\Http\Controllers\PresensiController;
 use App\Models\Departemen;
 use Illuminate\Support\Facades\Route;
@@ -78,4 +79,8 @@ Route::middleware(['auth:user'])->group(function () {
     Route::post('/prosesCetak', [PresensiController::class, 'cetakLaporan']);
     Route::get('/laporan/rekab', [PresensiController::class, 'rekab']);
     Route::post('/cetakRekab', [PresensiController::class, 'cetakRekab']);
+
+    // Setting Lokasi
+    Route::get('/konfigurasi/lokasi', [Konfigurasi::class, 'setLokasi']);
+    Route::post('/konfigurasi/updateLokasi', [Konfigurasi::class, 'updateLokasi']);
 });

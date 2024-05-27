@@ -29,6 +29,7 @@
         height: 100%;
       }
     }
+
     @media only screen and (max-width: 1200px) {
       #map {
         height: 100%;
@@ -49,9 +50,9 @@
 
     /* MAP */
     /* #map {
-            
-            height: 100px;
-          } */
+                          
+                          height: 100px;
+                        } */
   </style>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
@@ -107,16 +108,21 @@
     function successCallback(position) {
       lokasi.value = position.coords.latitude + ',' + position.coords.longitude;
       var map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 18);
+      var lokasi_kantor = "{{ $lok_kantor->koordinat }}";
+      var radius = "{{ $lok_kantor->radius }}"
+      var lok = lokasi_kantor.split(',');
+      var lat = lok[0];
+      var long = lok[1];
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       }).addTo(map);
       var marker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
-      var circle = L.circle([-7.395647283940812, 112.76257156291571], {
+      var circle = L.circle([lat, long], {
         color: 'red',
         fillColor: '#f03',
         fillOpacity: 0.5,
-        radius: 50,
+        radius: radius,
       }).addTo(map);
     }
 
@@ -145,7 +151,7 @@
               toast: true,
               position: 'top',
               showConfirmButton: false,
-              timer: 3000,
+              timer: 1500,
               timerProgressBar: true,
               didOpen: (toast) => {
                 toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -162,7 +168,7 @@
               toast: true,
               position: 'top',
               showConfirmButton: false,
-              timer: 3000,
+              timer: 1500,
               timerProgressBar: true,
               didOpen: (toast) => {
                 toast.addEventListener('mouseenter', Swal.stopTimer)
