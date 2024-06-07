@@ -185,20 +185,26 @@ class PresensiController extends Controller
     {
         $nik = Auth::guard('karyawan')->user()->nik;
         $tgl_izin = $request->tgl_izin;
+        // Cek apakah tanggal izin sudah ada di database
+        $cek = DB::table('perizinan')
+            ->where('nik', $nik)
+            ->where('tgl_izin', $tgl_izin)
+            ->first();
+        if ($cek) {
+            // Jika ada, redirect back dengan pesan error
+            return redirect()->back()->with('error', 'Tanggal Izin sama dengan sebelumnya');
+        }
         $keterangan = $request->keterangan;
         $alasan = $request->alasan;
-
         $data = [
             'nik' => $nik,
             'tgl_izin' => $tgl_izin,
             'keterangan' => $keterangan,
             'alasan' => $alasan,
         ];
-
         $simpan = DB::table('perizinan')->insert($data);
-
         if ($simpan) {
-            return redirect('/presensi/izin')->with(['success' => 'Data behasil dikirim']);
+            return redirect('/presensi/izin')->with(['success' => 'Data berhasil dikirim']);
         } else {
             return redirect('/presensi/izin')->with(['error' => 'Data gagal dikirim']);
         }

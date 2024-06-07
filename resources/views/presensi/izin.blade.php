@@ -50,7 +50,7 @@
       @endforeach
     </div>
   </div>
-  <div class="fab-button text bottom-center" style="margin-bottom: 80px">
+  <div class="fab-button text bottom-right" style="margin-bottom: 80px">
     <a href="/presensi/buatizin" class="fab">
       <ion-icon name="add-outline"></ion-icon>
       Buat Izin

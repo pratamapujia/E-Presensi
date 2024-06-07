@@ -1,6 +1,7 @@
 @extends('layouts.index')
 @section('title')
   <title>Buat Izin</title>
+  <link rel="stylesheet" href="{{ asset('assets/admin/static/datepicker/css/bootstrap-datepicker3.standalone.css') }}">
 @endsection
 @section('header')
   <div class="appHeader bg-primary text-light">
@@ -12,6 +13,9 @@
     <div class="pageTitle">Form Buat Izin</div>
     <div class="right"></div>
   </div>
+  @if (Session::get('error'))
+    <div class="flash-data" data-flasherror="{{ Session::get('error') }}"></div>
+  @endif
 @endsection
 @section('main')
   <div class="container">
@@ -22,15 +26,15 @@
             @csrf
             <div class="col-6">
               <label for="tgl_izin" class="form-label">Tanggal Izin</label>
-              <input type="date" class="form-control" name="tgl_izin" id="tgl_izin" required>
+              <input type="text" class="form-control" id="tgl_izin" name="tgl_izin" required>
               <div class="invalid-feedback">
-                Tanggal izin harus diisi!!!
+                Tanggal Izin harus diisi!
               </div>
             </div>
             <div class="col-6">
               <label for="keterangan" class="form-label">Keterangan</label>
               <select name="keterangan" id="keterangan" class="form-select" required>
-                <option>Sakit / Izin</option>
+                <option value="">Sakit / Izin</option>
                 <option value="s">Sakit</option>
                 <option value="i">Izin</option>
               </select>
@@ -57,7 +61,15 @@
   </div>
 @endsection
 @push('myscript')
+  <script src="{{ asset('assets/admin/static/datepicker/js/bootstrap-datepicker.js') }}"></script>
   <script>
+    $('#tgl_izin').datepicker({
+      autoclose: true,
+      todayHighlight: true,
+      format: 'yyyy-mm-dd',
+      orientation: 'bottom auto'
+    });
+
     // Example starter JavaScript for disabling form submissions if there are invalid fields
     (function() {
       'use strict';
@@ -76,5 +88,25 @@
         });
       }, false);
     })();
+
+    // Sweet Alert
+    const flasherror = $(".flash-data").data("flasherror");
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
+    if (flasherror) {
+      Toast.fire({
+        icon: "warning",
+        title: flasherror,
+      });
+    }
   </script>
 @endpush
