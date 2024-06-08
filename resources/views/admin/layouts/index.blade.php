@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     @yield('title')
 
-    <link rel="shortcut icon" href="{{ asset('assets/admin/compiled/svg/favicon.svg') }}" type="image/x-icon" />
+    <link rel="shortcut icon" href="{{ asset('assets/img/logo2.png') }}" type="image/x-icon" />
     <link rel="stylesheet" href="{{ asset('assets/admin/compiled/css/app.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/admin/compiled/css/app-dark.css') }}" />
     {{-- FontAwesome --}}
