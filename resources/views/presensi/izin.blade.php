@@ -23,16 +23,16 @@
   <div class="container">
     <div class="section mt-2 row">
       @foreach ($dataIzin as $data)
-        <div class="col-sm-6 col-md-4 col-lg-3 pt-2">
+        <div class="col-6 col-sm-6 col-md-4 col-lg-3 pt-2">
           <div class="card">
             <div class="card-body">
               <div class="row">
-                <div class="col-9">
+                <div class="col-7">
                   <h5 class="card-title">
                     {{ $data->keterangan == 's' ? 'Sakit' : 'Izin' }}
                   </h5>
                 </div>
-                <div class="col-3">
+                <div class="col-5 text-end">
                   @if ($data->laporan == 0)
                     <span class="badge bg-warning">Waiting</span>
                   @elseif ($data->laporan == 1)
