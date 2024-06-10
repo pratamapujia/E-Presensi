@@ -47,14 +47,14 @@
         <div class="col-6">
           <div class="card bg-success mb-3">
             <div class="row g-0">
-              <div class="col-md-4">
+              <div class="col-md-4 text-center">
                 @if ($presensiHariIni != null)
                   @php
                     $path = Storage::url('uploads/absensi/' . $presensiHariIni->foto_in);
                   @endphp
                   <img src="{{ url($path) }}" alt="Foto In" class="img-fluid rounded-start">
                 @else
-                  <img src="{{ asset('assets/img/icon/photo.png') }}" class="img-fluid rounded-start" alt="Camera">
+                  <img src="{{ asset('assets/img/icon/photo.png') }}" class="img-fluid m-1" alt="Camera">
                 @endif
               </div>
               <div class="col-md-8">
@@ -69,14 +69,14 @@
         <div class="col-6">
           <div class="card bg-warning mb-3">
             <div class="row g-0">
-              <div class="col-md-4">
+              <div class="col-md-4 text-center">
                 @if ($presensiHariIni != null && $presensiHariIni->jam_out != null)
                   @php
                     $path = Storage::url('uploads/absensi/' . $presensiHariIni->foto_out);
                   @endphp
                   <img src="{{ url($path) }}" alt="Foto Out" class="img-fluid rounded-start">
                 @else
-                  <img src="{{ asset('assets/img/icon/photo.png') }}" class="img-fluid rounded-start" alt="Camera">
+                  <img src="{{ asset('assets/img/icon/photo.png') }}" class="img-fluid m-1" alt="Camera">
                 @endif
               </div>
               <div class="col-md-8">
@@ -94,7 +94,7 @@
     <div class="section mt-2">
       <h2>Rekap absensi bulan {{ $namaBulan[$bulanIni] }} tahun {{ $tahunIni }}</h2>
       <div class="row">
-        <div class="col-3">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-1">
           <div class="card">
             <div class="card-body comment-block">
               <div class="item">
@@ -113,7 +113,7 @@
             </div>
           </div>
         </div>
-        <div class="col-3">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-1">
           <div class="card">
             <div class="card-body comment-block">
               <div class="item">
@@ -132,7 +132,7 @@
             </div>
           </div>
         </div>
-        <div class="col-3">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-1">
           <div class="card">
             <div class="card-body comment-block">
               <div class="item">
@@ -151,7 +151,7 @@
             </div>
           </div>
         </div>
-        <div class="col-3">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-1">
           <div class="card">
             <div class="card-body comment-block">
               <div class="item">
