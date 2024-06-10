@@ -9,7 +9,7 @@
     <meta name="theme-color" content="#000000">
     <title>Login | Absensi Online</title>
     <meta name="description" content="Mobilekit HTML Mobile UI Kit">
-    <meta name="keywords" content="bootstrap 4, mobile template, cordova, phonegap, mobile, html" />
+    <meta name="keywords" content="bootstrap 5, mobile template, cordova, phonegap, mobile, html" />
     <link rel="icon" type="image/png" href="{{ asset('assets/img/icon.png') }}" sizes="32x32">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/img/icon.png') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
@@ -42,17 +42,15 @@
           @endphp
           @if (Session::get('pesan'))
             <div class="alert alert-outline-danger alert-dismissible fade show" role="alert">
-              {{ $alert }}
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+              <strong>{{ $alert }}</strong>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
           @endif
           <form action="/prosesLogin" method="POST">
             @csrf
             <div class="form-group boxed">
               <div class="input-wrapper">
-                <input type="text" name="nik" class="form-control" id="nik" placeholder="NIK">
+                <input type="text" name="nik" class="form-control" id="nik" placeholder="NIK" required>
                 <i class="clear-input">
                   <ion-icon name="close-circle"></ion-icon>
                 </i>
@@ -61,7 +59,7 @@
 
             <div class="form-group boxed">
               <div class="input-wrapper">
-                <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+                <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
                 <i class="clear-input">
                   <ion-icon name="close-circle"></ion-icon>
                 </i>
@@ -87,18 +85,15 @@
     </div>
     <!-- * App Capsule -->
 
-    <!-- ///////////// Js Files ////////////////////  -->
-    <!-- Jquery -->
-    <script src="{{ asset('assets/js/lib/jquery-3.4.1.min.js') }}"></script>
-    <!-- Bootstrap-->
-    <script src="{{ asset('assets/js/lib/popper.min.js') }}"></script>
+    <!-- ============== Js Files ==============  -->
+    <!-- Bootstrap -->
     <script src="{{ asset('assets/js/lib/bootstrap.min.js') }}"></script>
     <!-- Ionicons -->
-    <script type="module" src="https://unpkg.com/ionicons@5.0.0/dist/ionicons/ionicons.js"></script>
-    <!-- Owl Carousel -->
-    <script src="{{ asset('assets/js/plugins/owl-carousel/owl.carousel.min.js') }}"></script>
-    <!-- jQuery Circle Progress -->
-    <script src="{{ asset('assets/js/plugins/jquery-circle-progress/circle-progress.min.js') }}"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <!-- Splide -->
+    <script src="{{ asset('assets/js/plugins/splide/splide.min.js') }}"></script>
+    <!-- ProgressBar js -->
+    <script src="{{ asset('assets/js/plugins/progressbar-js/progressbar.min.js') }}"></script>
     <!-- Base Js File -->
     <script src="{{ asset('assets/js/base.js') }}"></script>
   </body>

@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="{{ asset('assets/admin/compiled/css/app.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/admin/compiled/css/app-dark.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/admin/compiled/css/auth.css') }}" />
+    {{-- FontAwesome --}}
+    <link rel="stylesheet" href="{{ asset('assets/admin/extensions/@fortawesome/fontawesome-free/css/all.min.css') }}">
   </head>
 
   <body>
@@ -20,9 +22,8 @@
           <div id="auth-center">
             <h1 class="auth-title">Login Admin.</h1>
             @if (Session::get('pesan'))
-              <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                {{ Session::get('pesan') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              <div class="alert alert-danger">
+                <i class="fas fa-triangle-exclamation"></i> {{ Session::get('pesan') }}
               </div>
             @endif
             <form action="/prosesLoginAdmin" method="POST" autocomplete="off">
@@ -49,6 +50,9 @@
         </div>
       </div>
     </div>
+    <script src="{{ asset('assets/static/js/components/dark.js') }}"></script>
+    <script src="{{ asset('assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
+    <script src="{{ asset('assets/compiled/js/app.js') }}"></script>
   </body>
 
 </html>
