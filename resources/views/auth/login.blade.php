@@ -66,11 +66,8 @@
               </div>
             </div>
 
-            <div class="form-links mt-2">
-              <div>
-                <a href="page-register.html">Daftar</a>
-              </div>
-              <div><a href="page-forgot-password.html" class="text-muted">Lupa Password?</a></div>
+            <div class="mt-3">
+              <small class="text-danger"><i class="bi bi-exclamation-triangle"></i> Jika lupa password, silahkan hubungi Admin</small>
             </div>
 
             <div class="form-button-group">
