@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\DepartemenController;
 use App\Http\Controllers\IzinController;
+use App\Http\Controllers\JamKerjaController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\Konfigurasi;
 use App\Http\Controllers\PresensiController;
@@ -89,4 +90,7 @@ Route::middleware(['auth:user'])->group(function () {
     Route::get('izin', [IzinController::class, 'index']);
     Route::post('/izin/{id}/update', [IzinController::class, 'update']);
     Route::post('/izin/{id}/cancel', [IzinController::class, 'cancel']);
+
+    // Jam Kerja
+    Route::get('/konfigurasi/jam', [JamKerjaController::class, 'SetJamKerja']);
 });

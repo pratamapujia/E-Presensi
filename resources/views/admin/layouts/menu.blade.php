@@ -55,9 +55,9 @@
         <li class="submenu-item {{ request()->is('konfigurasi/lokasi') ? 'active' : '' }}">
           <a href="/konfigurasi/lokasi" class="submenu-link">Lokasi Kantor</a>
         </li>
-        {{-- <li class="submenu-item {{ request()->is('laporan/rekab') ? 'active' : '' }}">
-          <a href="/laporan/rekab" class="submenu-link">Rekap Absensi</a>
-        </li> --}}
+        <li class="submenu-item {{ request()->is('konfigurasi/jam') ? 'active' : '' }}">
+          <a href="/konfigurasi/jam" class="submenu-link">Jam Kerja</a>
+        </li>
       </ul>
     </li>
   </ul>

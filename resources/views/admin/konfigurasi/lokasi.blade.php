@@ -48,8 +48,6 @@
 @endsection
 
 @push('adminScript')
-  <script src="{{ asset('assets/admin/extensions/simple-datatables/umd/simple-datatables.js') }}"></script>
-  <script src="{{ asset('assets/admin/static/js/pages/simple-datatables.js') }}"></script>
   <script src="{{ asset('assets/admin/static/datepicker/js/bootstrap-datepicker.js') }}"></script>
   <script>
     $(function() {
