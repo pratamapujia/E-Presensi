@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('jam_kerja', function (Blueprint $table) {
             $table->id();
-            $table->char('kd_jam', 4);
+            $table->char('kd_jam', 10)->unique();
             $table->string('nama_jam', 15);
             $table->time('awal_jam');
             $table->time('jam_masuk');
             $table->time('akhir_jam');
             $table->time('jam_pulang');
+            $table->timestamps();
         });
     }
 

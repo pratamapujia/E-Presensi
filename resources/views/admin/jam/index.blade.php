@@ -16,7 +16,7 @@
     <div class="flash-data" data-gagal="{{ Session::get('gagal') }}"></div>
     <div class="card">
       <div class="card-header">
-        <a href="" class="btn icon icon-left btn-primary">
+        <a href="jam/create" class="btn icon icon-left btn-primary">
           <i class="fas fa-plus"></i> Tambah Data
         </a>
       </div>

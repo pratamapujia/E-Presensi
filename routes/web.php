@@ -91,6 +91,8 @@ Route::middleware(['auth:user'])->group(function () {
     Route::post('/izin/{id}/update', [IzinController::class, 'update']);
     Route::post('/izin/{id}/cancel', [IzinController::class, 'cancel']);
 
-    // Jam Kerja
-    Route::get('/konfigurasi/jam', [JamKerjaController::class, 'SetJamKerja']);
+    // Setting Jam Kerja
+    Route::get('/konfigurasi/jam', [Konfigurasi::class, 'setJamKerja']);
+    Route::get('/konfigurasi/jam/create', [Konfigurasi::class, 'createJam']);
+    Route::post('/storeJam', [Konfigurasi::class, 'storeJam']);
 });

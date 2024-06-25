@@ -55,7 +55,7 @@
         <li class="submenu-item {{ request()->is('konfigurasi/lokasi') ? 'active' : '' }}">
           <a href="/konfigurasi/lokasi" class="submenu-link">Lokasi Kantor</a>
         </li>
-        <li class="submenu-item {{ request()->is('konfigurasi/jam') ? 'active' : '' }}">
+        <li class="submenu-item {{ request()->is('konfigurasi/jam', 'konfigurasi/jam/*') ? 'active' : '' }}">
           <a href="/konfigurasi/jam" class="submenu-link">Jam Kerja</a>
         </li>
       </ul>
