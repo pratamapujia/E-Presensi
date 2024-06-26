@@ -48,7 +48,7 @@
             <div class="col-sm-12 col-md-6 col-lg-6">
               <div class="form-group">
                 <label for="nik">NIK</label>
-                <input type="text" class="form-control @error('nik') is-invalid @enderror" name="nik" placeholder="NIK" value="{{ old('nik') }}">
+                <input type="text" class="form-control @error('nik') is-invalid @enderror" name="nik" placeholder="NIK" value="{{ $nextNik }}" readonly>
                 @error('nik')
                   <div class="invalid-feedback">
                     {{ $message }}

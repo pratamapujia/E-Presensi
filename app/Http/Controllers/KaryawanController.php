@@ -28,8 +28,16 @@ class KaryawanController extends Controller
      */
     public function create()
     {
+        // Generate Nik
+        $lastNik = Karyawan::orderBy('nik', 'desc')->first();
+        if ($lastNik) {
+            $nik = $lastNik->nik;
+            $nextnik = 'ID' . str_pad(intval(substr($nik, 2)) + 1, 3, '0', STR_PAD_LEFT);
+        } else {
+            $nextNik = 'ID001';
+        }
         $dept = DB::table('departemen')->get();
-        return view('admin.karyawan.create', compact('dept'));
+        return view('admin.karyawan.create', compact('dept', 'nextNik'));
     }
 
     /**
@@ -39,17 +47,17 @@ class KaryawanController extends Controller
     {
         // Validation
         $validasi = Validator::make($request->all(), [
-            'nik' => 'required|numeric|unique:karyawan,nik|digits_between:3,5',
+            // 'nik' => 'required|numeric|unique:karyawan,nik|digits_between:3,5',
             'nama_lengkap' => 'required|max:30',
             'jabatan' => 'required|max:20',
             'kd_departemen' => 'required',
             'no_hp' => 'required|numeric|digits_between:10,13|unique:karyawan,no_hp',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ], [
-            'nik.required' => 'NIK tidak boleh kosong',
-            'nik.digits_between' => 'NIK hanya minimal 3 dan maximal 5 angka',
-            'nik.numeric' => 'NIK hanya boleh angka',
-            'nik.unique' => 'NIK tidak boleh sama',
+            // 'nik.required' => 'NIK tidak boleh kosong',
+            // 'nik.digits_between' => 'NIK hanya minimal 3 dan maximal 5 angka',
+            // 'nik.numeric' => 'NIK hanya boleh angka',
+            // 'nik.unique' => 'NIK tidak boleh sama',
             'nama_lengkap.required' => 'Nama tidak boleh kosong',
             'nama_lengkap.max' => 'Nama hanya hanya maximal 30 huruf',
             'jabatan.required' => 'Jabatan tidak boleh kosong',
@@ -196,9 +204,9 @@ class KaryawanController extends Controller
     {
         $karyawan = Karyawan::find($id);
         if ($karyawan->delete()) {
-            return redirect()->route('karyawan.index')->with('pesan','Data berhasil Dihapus 👍');
+            return redirect()->route('karyawan.index')->with('pesan', 'Data berhasil Dihapus 👍');
         } else {
-            return redirect()->route('karyawan.index')->with('gagal','Data gagal Dihapus 😭');
+            return redirect()->route('karyawan.index')->with('gagal', 'Data gagal Dihapus 😭');
         }
     }
 }
