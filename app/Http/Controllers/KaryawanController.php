@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 
 class KaryawanController extends Controller
 {
@@ -29,15 +31,15 @@ class KaryawanController extends Controller
     public function create()
     {
         // Generate Nik
-        $lastNik = Karyawan::orderBy('nik', 'desc')->first();
+        $lastNik = DB::table('karyawan')->orderBy('nik', 'desc')->first();
         if ($lastNik) {
-            $nik = $lastNik->nik;
-            $nextnik = 'ID' . str_pad(intval(substr($nik, 2)) + 1, 3, '0', STR_PAD_LEFT);
+            $Nik = $lastNik->nik;
+            $nikBaru = 'ID' . str_pad(intval(substr($Nik, 2)) + 1, 3, '0', STR_PAD_LEFT);
         } else {
-            $nextNik = 'ID001';
+            $nikBaru = 'ID001';
         }
         $dept = DB::table('departemen')->get();
-        return view('admin.karyawan.create', compact('dept', 'nextNik'));
+        return view('admin.karyawan.create', compact('dept', 'nikBaru'));
     }
 
     /**
@@ -84,16 +86,19 @@ class KaryawanController extends Controller
         $karyawan->password = Hash::make('password');
 
         if ($request->hasFile('foto')) {
-            $karyawan->foto = $karyawan->nik . "." . $request->file('foto')->getClientOriginalExtension();
+            $karyawan->foto = $request->nik . "." . $request->file('foto')->getClientOriginalExtension();
+            $path = "public/uploads/karyawan/";
+            // Lakukan cropping
+            $manager = new ImageManager(Driver::class);
+            $croppedImage = $manager->read($request->file('foto'));
+            $croppedImage->cover(300, 300, 'top-center')->save(storage_path('app/' . $path . $karyawan->foto));
         } else {
             $karyawan->foto = null;
         }
 
         if ($karyawan->save()) {
-            if ($request->hasFile('foto')) {
-                $path = "public/uploads/karyawan/";
-                $request->file('foto')->storeAs($path, $karyawan->foto);
-            }
+            // if ($request->hasFile('foto')) {
+            // }
             return redirect()->route('karyawan.index')->with('pesan', 'Data berhasil disimpan 👍');
         } else {
             return redirect()->back()->with('gagal', 'Data gagal Disimpan 😭');
@@ -179,18 +184,23 @@ class KaryawanController extends Controller
         $old_foto = $request->old_foto;
 
         if ($request->hasFile('foto')) {
-            $karyawan->foto = $karyawan->nik . "." . $request->file('foto')->getClientOriginalExtension();
+            $karyawan->foto = $request->nik . "." . $request->file('foto')->getClientOriginalExtension();
+            $path = "public/uploads/karyawan/";
+            $pathOld = "public/uploads/karyawan/" . $old_foto;
+            Storage::delete($pathOld);
+            // Lakukan cropping
+            $manager = new ImageManager(Driver::class);
+            $croppedImage = $manager->read($request->file('foto'));
+            $croppedImage->cover(300, 300, 'top-center')->save(storage_path('app/' . $path . $karyawan->foto));
         } else {
             $karyawan->foto = $old_foto;
         }
 
         if ($karyawan->update()) {
-            if ($request->hasFile('foto')) {
-                $path = "public/uploads/karyawan/";
-                $pathOld = "public/uploads/karyawan/" . $old_foto;
-                Storage::delete($pathOld);
-                $request->file('foto')->storeAs($path, $karyawan->foto);
-            }
+            // if ($request->hasFile('foto')) {
+            //     $path = "public/uploads/karyawan/";
+            //     $request->file('foto')->storeAs($path, $karyawan->foto);
+            // }
             return redirect()->route('karyawan.index')->with('pesan', 'Data berhasil Diperbarui 👍');
         } else {
             return redirect()->back()->with('gagal', 'Data gagal Diperbarui 😭');
