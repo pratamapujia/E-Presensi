@@ -52,7 +52,7 @@
                   @php
                     $path = Storage::url('uploads/absensi/' . $presensiHariIni->foto_in);
                   @endphp
-                  <img src="{{ url($path) }}" alt="Foto In" class="img-fluid rounded-start">
+                  <img src="{{ url($path) }}" alt="Foto In" class="img-fluid rounded">
                 @else
                   <img src="{{ asset('assets/img/icon/photo.png') }}" class="img-fluid m-1" alt="Camera">
                 @endif
@@ -74,7 +74,7 @@
                   @php
                     $path = Storage::url('uploads/absensi/' . $presensiHariIni->foto_out);
                   @endphp
-                  <img src="{{ url($path) }}" alt="Foto Out" class="img-fluid rounded-start">
+                  <img src="{{ url($path) }}" alt="Foto Out" class="img-fluid rounded">
                 @else
                   <img src="{{ asset('assets/img/icon/photo.png') }}" class="img-fluid m-1" alt="Camera">
                 @endif

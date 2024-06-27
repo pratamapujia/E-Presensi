@@ -16,7 +16,6 @@ if (berhasil) {
     Toast.fire({
         icon: "success",
         background: "#4E9F3D",
-        iconColor: "#fff",
         color: "#fff",
         title: berhasil,
     });
@@ -25,7 +24,6 @@ if (gagal) {
     Toast.fire({
         icon: "error",
         background: "#FA7070",
-        iconColor: "#fff",
         color: "#fff",
         title: gagal,
     });
